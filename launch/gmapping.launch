@@ -27,7 +27,7 @@
     <param name="odom_frame" value="$(arg odom_frame)"/>
 
 
-    <param name="linearUpdate" value="0.5"/>
+    <param name="linearUpdate" value="0.2"/>
     <param name="angularUpdate" value="0.436"/>
     <param name="temporalUpdate" value="-1.0"/>
     <param name="resampleThreshold" value="0.5"/>
