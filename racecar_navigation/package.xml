@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>racecar-env_navigation</name>
+  <version>1.0.0</version>
+  <description>
+    The racecar-env_navigation provides roslaunch scripts for starting the navigation.
+  </description>
+  <author email="f20171569@hyderabad.bits-pilani.ac.in">Devansh</author>
+  <author>Devansh Dhrafani</author>
+  <maintainer email="f20171569@hyderabad.bits-pilani.ac.in">Devansh</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>amcl</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>move_base</exec_depend>
+</package>

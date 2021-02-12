@@ -18,3 +18,12 @@ mit-racecar environment to test motion planning algorithms.
 3. $ `rosrun racecar_control keyboard_teleop.py`
 
 ![Gmapping](images/gmapping.png)
+
+
+## Navigation Stack
+
+```bash
+$ roslaunch racecar-env racecar_navigation.launch 
+```
+
+![Navigation](images/navigation.png)

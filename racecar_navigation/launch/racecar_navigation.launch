@@ -1,0 +1,35 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="map_file" default="$(find racecar-env)/racecar_navigation/maps/map.yaml"/>
+  <arg name="open_rviz" default="true"/>
+  <arg name="move_forward_only" default="false"/>
+
+  <!-- Launch Robot in Gazebo  -->
+  <include file="$(find racecar-env)/launch/racecar_new_world.launch">
+  </include>
+  
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="False"/>
+  </node>  
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+  <!-- AMCL -->
+  <include file="$(find racecar-env)/racecar_navigation/launch/amcl.launch"/>
+
+  <!-- cmd_vel to ackermann_drive -->
+  <node pkg="racecar-env" name="cmd_vel_to_ackermann_drive" type="cmd_vel_to_ackermann_drive.py">
+  </node> 
+
+  <!-- move_base -->
+  <include file="$(find racecar-env)/racecar_navigation/launch/move_base.launch">
+    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+  </include>
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find racecar-env)/racecar_navigation/rviz/racecar_navigation.rviz"/>
+  </group>
+</launch>
