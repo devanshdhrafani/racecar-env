@@ -2,7 +2,6 @@
   <!-- Arguments -->
   <arg name="map_file" default="$(find racecar-env)/racecar_navigation/maps/map.yaml"/>
   <arg name="open_rviz" default="true"/>
-  <arg name="move_forward_only" default="false"/>
 
   <!-- Launch Robot in Gazebo  -->
   <include file="$(find racecar-env)/launch/racecar_new_world.launch">
@@ -24,12 +23,11 @@
 
   <!-- move_base -->
   <include file="$(find racecar-env)/racecar_navigation/launch/move_base.launch">
-    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
   </include>
 
-  <!-- rviz -->
-  <group if="$(arg open_rviz)"> 
-    <node pkg="rviz" type="rviz" name="rviz" required="true"
-          args="-d $(find racecar-env)/racecar_navigation/rviz/racecar_navigation.rviz"/>
-  </group>
+  <node pkg="mpnet_plan" type="controller_node" respawn="true" name="controller_node" output="screen"/>
+
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find racecar-env)/racecar_navigation/rviz/racecar_navigation.rviz" />
+
+
 </launch>

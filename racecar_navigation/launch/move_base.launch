@@ -2,19 +2,25 @@
   <!-- Arguments -->
   <arg name="cmd_vel_topic" default="/cmd_vel" />
   <arg name="odom_topic" default="odom" />
-  <arg name="move_forward_only" default="false"/>
 
   <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
-    <rosparam file="$(find racecar-env)/racecar_navigation/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find racecar-env)/racecar_navigation/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find racecar-env)/racecar_navigation/param/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find racecar-env)/racecar_navigation/param/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find racecar-env)/racecar_navigation/param/move_base_params.yaml" command="load" />
-    <rosparam file="$(find racecar-env)/racecar_navigation/param/dwa_local_planner_params.yaml" command="load" />
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
-    <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
+
+    <rosparam file="$(find racecar-env)/racecar_navigation/param/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+    <rosparam file="$(find racecar-env)/racecar_navigation/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find racecar-env)/racecar_navigation/param/costmap_common_config.yaml" command="load" ns="collision_costmap"/>
+    <rosparam file="$(find racecar-env)/racecar_navigation/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find racecar-env)/racecar_navigation/param/global_costmap_params.yaml" command="load" /> 
+    <rosparam file="$(find mpnet_plan)/params/collision_costmap_param.yaml" command="load" /> 
+    <param name="NavfnROS/allow_unknown" value="false"/>
+    <param name="global_costmap/obstacle_costmap/track_unknown_space" value="true"/>
+    <param name="base_local_planner" value="mpnet_local_planner/MpnetLocalPlanner" />
+    <param name="controller_frequency" value="5.0"/>
+    <!-- <param name="controller_patience" value="15.0"/> -->
+
+    <rosparam file="$(find mpnet_plan)/params/local_planner.yaml" command="load" />
+
   </node>
 </launch>
