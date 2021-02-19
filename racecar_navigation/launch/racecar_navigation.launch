@@ -17,10 +17,6 @@
   <!-- AMCL -->
   <include file="$(find racecar-env)/racecar_navigation/launch/amcl.launch"/>
 
-  <!-- cmd_vel to ackermann_drive -->
-  <node pkg="racecar-env" name="cmd_vel_to_ackermann_drive" type="cmd_vel_to_ackermann_drive.py">
-  </node> 
-
   <!-- move_base -->
   <include file="$(find racecar-env)/racecar_navigation/launch/move_base.launch">
   </include>
